@@ -1,0 +1,13 @@
+{
+  "name": "i18nix",
+  "version": "1.0.0",
+  "description": "Small & thin i18n lib",
+  "main": "lib/index.js",
+  "repository": "https://github.com/cinic/i18nix",
+  "author": "Aleksandr Andreev <cinic.rus@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}
