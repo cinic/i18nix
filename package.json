@@ -9,5 +9,11 @@
   "private": true,
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "lerna": "^3.14.1",
+    "rollup": "^1.12.4",
+    "rollup-plugin-typescript": "^1.0.1",
+    "typescript": "^3.4.5"
+  }
 }
