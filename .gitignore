@@ -4,3 +4,4 @@ node_modules/
 .vscode/
 dist/
 .rpt2_cache
+yarn-error.log

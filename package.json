@@ -18,6 +18,7 @@
     "jest": "^24.8.0",
     "lerna": "^3.14.1",
     "rollup": "^1.12.4",
+    "rollup-plugin-terser": "^5.0.0",
     "rollup-plugin-typescript2": "^0.21.1",
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.1"

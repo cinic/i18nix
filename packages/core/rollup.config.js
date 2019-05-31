@@ -1,8 +1,9 @@
 import typescript from 'rollup-plugin-typescript2'
+import { terser } from 'rollup-plugin-terser'
 import pkg from './package.json'
 
 export default {
-  input: 'index.ts',
+  input: 'src/index.ts',
   output: [
     {
       file: pkg.main,
@@ -13,5 +14,5 @@ export default {
       format: 'es'
     }
   ],
-  plugins: [typescript()]
+  plugins: [typescript(), terser()]
 }

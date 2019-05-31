@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "files": [
-    "dist"
+    "dist/index.js",
+    "dist/index.es.js",
+    "dist/index.d.ts"
   ],
   "types": "dist/index.d.ts",
   "repository": "https://github.com/cinic/i18nix",
