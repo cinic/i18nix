@@ -1,8 +1,8 @@
 
-export function getPath(path, obj) {
+export function getPath(path: string[], obj: { [key: string]: any }) {
   let val = obj
   let idx = 0
-  
+
   while (idx < path.length) {
     if (val == null) {
       return

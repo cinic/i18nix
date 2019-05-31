@@ -6,7 +6,7 @@ const TRANSLATIONS_KEY = 'translations'
 
 const settings = new Map()
 
-export function createInstance(locale = 'en', translations = { en: {} }) {
+export function createInstance(locale = 'en', translations = {}) {
   settings.set(LOCALE_KEY, locale).set(TRANSLATIONS_KEY, translations)
 
   return {
@@ -14,27 +14,22 @@ export function createInstance(locale = 'en', translations = { en: {} }) {
       return settings.get(LOCALE_KEY)
     },
     set locale(locale) {
-      return settings.set(LOCALE_KEY, locale)
+      settings.set(LOCALE_KEY, locale)
     },
     get translations() {
       return settings.get(TRANSLATIONS_KEY)
     },
     set translations(translations) {
-      return settings.set(TRANSLATIONS_KEY, translations)
+      settings.set(TRANSLATIONS_KEY, translations)
     },
     t
   }
 }
 
-function t(path, interpolation) {
-  let translation
+function t(path: string[], interpolation?: {}) {
   const localeTranslations = settings.get(TRANSLATIONS_KEY)[settings.get(LOCALE_KEY)] || settings.get(TRANSLATIONS_KEY)['en']
-  
-  try {
-    translation = getPath(path, localeTranslations)
-  } catch (err) {
-    return console.warn('Path not found in:', (settings.get(LOCALE_KEY) || 'en'), path.join('.'))
-  }
+  const translation = getPath(path, localeTranslations) || ''
+  !translation && console.warn('Path not found in:', (settings.get(LOCALE_KEY) || 'en'), path.join('.'))
 
-  return interpolation ? interpolate(translation, interpolation) : translation
+  return interpolation ? interpolate(translation as string, interpolation) : translation
 }
