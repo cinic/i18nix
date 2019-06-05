@@ -1,11 +1,12 @@
-# i18nix
-Smallest i18n lib
+# i18nix-react
+React component for i18nix
+
 
 # Getting started
 
 ```bash
 npm config set registry http://repo.fxdd.com/nexus/content/repositories/npm-all
-yarn add i18nix
+yarn add i18nix i18nix-react
 ```
 
 Then u need to create an instance of i18n
@@ -26,34 +27,23 @@ const translations = {
   }
 }
 
-export const i18n = initI18n(defaultLocale, translations)
-export default i18n
+initI18n(defaultLocale, translations)
 ```
 
-Than u can import ```i18n``` at any component:
+Than u can use ```Translate``` component:
 
 ```typescript
 // App.tsx
-import { t } from '@lib/i18n'
+import { Translate as T } from 'i18nix-react'
+import '@lib/i18n'
 
 export const App = () => (
   <div>
-    <h1>{t(['title'])}</h1>
+    <h1><T path={['title']} /></h1>
+    {/* Or u can use string as path */}
+    <T path='title' />
+    {/* additional attributes are passed as an interpolation object */}
+    <T path='orderCreated' amount="5000" />
   </div>
 )
-```
-
-When u need an interpolate a params u can use second param of ```t``` method:
-
-```typescript
-t(['orderCreated'], { amount: 5000 }) // -> 'Pending order created with amount: 5000.'
-```
-
-For get/set locale use:
-
-```typescript
-import { t, setLocale } from '@lib/i18n'
-
-setLocale('ru')
-t(['title']) // -> 'Просто апп'
 ```

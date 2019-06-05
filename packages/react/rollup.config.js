@@ -14,6 +14,14 @@ export default {
       format: 'es'
     }
   ],
-  external: ['react'],
-  plugins: [typescript(), terser()]
+  plugins: [
+    typescript({
+      useTsconfigDeclarationDir: false,
+      declarationDir: './dist',
+      tsconfigOverride: {
+        compilerOptions: { declaration: true, allowJs: false }
+      }
+    }),
+    terser()
+  ]
 }

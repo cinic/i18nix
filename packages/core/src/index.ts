@@ -1,3 +1,4 @@
+import { Component } from 'react'
 import { getPath } from './lib/get-path'
 import { interpolate } from './lib/interpolate'
 
@@ -6,30 +7,49 @@ const TRANSLATIONS_KEY = 'translations'
 
 const settings = new Map()
 
-export function createInstance(locale = 'en', translations = {}) {
-  settings.set(LOCALE_KEY, locale).set(TRANSLATIONS_KEY, translations)
+export function initI18n(locale = 'en', translations = {}) {
+  setLocale(locale)
+  setTranslations(translations)
 
-  return {
-    get locale() {
-      return settings.get(LOCALE_KEY)
-    },
-    set locale(locale) {
-      settings.set(LOCALE_KEY, locale)
-    },
-    get translations() {
-      return settings.get(TRANSLATIONS_KEY)
-    },
-    set translations(translations) {
-      settings.set(TRANSLATIONS_KEY, translations)
-    },
-    t
+  return { setLocale, setTranslations, getLocale, getTranslations, t }
+}
+
+export class BaseComponent<T> extends Component<T, any> {
+  static instances = new Set<BaseComponent<any>>()
+  static update = () => BaseComponent.instances.forEach(instance => instance.forceUpdate())
+
+  componentDidMount() {
+    BaseComponent.instances.add(this)
+  }
+
+  componentWillUnmount() {
+    BaseComponent.instances.delete(this)
   }
 }
 
-function t(path: string[], interpolation?: {}) {
-  const localeTranslations = settings.get(TRANSLATIONS_KEY)[settings.get(LOCALE_KEY)] || settings.get(TRANSLATIONS_KEY)['en']
-  const translation = getPath(path, localeTranslations) || ''
-  !translation && console.warn('Path not found in:', (settings.get(LOCALE_KEY) || 'en'), path.join('.'))
+export function setTranslations(translations: { [key: string]: any }) {
+  settings.set(TRANSLATIONS_KEY, translations)
+  BaseComponent.update()
+}
+
+export function getTranslations() {
+  return settings.get(TRANSLATIONS_KEY)
+}
+
+export function setLocale(locale: string) {
+  settings.set(LOCALE_KEY, locale)
+  BaseComponent.update()
+}
+
+export function getLocale() {
+  return settings.get(LOCALE_KEY)
+}
+
+export function t(path: string[] | string, interpolation?: {}) {
+  const normalizePath = typeof path === 'string' ? path.split('.') : path
+  const localeTranslations = getTranslations()[getLocale()] || getTranslations()['en']
+  const translation = getPath(normalizePath, localeTranslations) || ''
+  !translation && console.warn('Path not found in:', (settings.get(LOCALE_KEY) || 'en'), normalizePath.join('.'))
 
   return interpolation ? interpolate(translation as string, interpolation) : translation
 }
