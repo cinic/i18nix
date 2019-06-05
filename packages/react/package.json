@@ -21,7 +21,7 @@
     "registry": "http://repo.fxdd.com/nexus/content/repositories/npm-internal/"
   },
   "peerDependencies": {
-    "react": "^16.8.6",
-    "i18nix": "^1.1.0"
+    "i18nix": "^1.1.0",
+    "react": "^16.8.6"
   }
 }
