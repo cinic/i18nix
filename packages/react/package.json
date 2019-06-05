@@ -14,12 +14,26 @@
   "author": "Aleksandr Andreev <cinic.rus@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "test": "jest ."
   },
   "publishConfig": {
     "registry": "http://repo.fxdd.com/nexus/content/repositories/npm-internal/"
   },
   "peerDependencies": {
     "react": "^16.8.6"
+  },
+  "dependencies": {
+    "i18nix": "^1.0.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "rollup-plugin-commonjs": "^10.0.0",
+    "rollup-plugin-node-resolve": "^5.0.1",
+    "rollup-plugin-replace": "^2.2.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^8.0.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   }
 }

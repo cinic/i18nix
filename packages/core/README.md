@@ -12,7 +12,8 @@ Then u need to create an instance of i18n
 
 ```typescript
 // @lib/i18n.ts
-import { createInstance } from 'i18nix'
+import { initI18n } from 'i18nix'
+
 const defaultLocale = 'en'
 const translations = {
   en: {
@@ -25,18 +26,19 @@ const translations = {
   }
 }
 
-export const i18n = createInstance(defaultLocale, translations)
+export const i18n = initI18n(defaultLocale, translations)
+export default i18n
 ```
 
 Than u can import ```i18n``` at any component:
 
 ```typescript
 // App.tsx
-import { i18n } from '@lib/i18n'
+import { t } from '@lib/i18n'
 
 export const App = () => (
   <div>
-    <h1>{i18n.t(['title'])}</h1>
+    <h1>{t(['title'])}</h1>
   </div>
 )
 ```
@@ -44,15 +46,14 @@ export const App = () => (
 When u need an interpolate a params u can use second param of ```t``` method:
 
 ```typescript
-i18n.t(['orderCreated'], { amount: 5000 })
+t(['orderCreated'], { amount: 5000 }) // -> 'Pending order created with amount: 5000.'
 ```
 
 For get/set locale use:
 
 ```typescript
-import { i18n } from '@lib/i18n'
+import { t, setLocale } from '@lib/i18n'
 
-i18n.locale = 'ru'
-i18n.t(['title'])
-i18n.locale === 'ru'
+setLocale('ru')
+t(['title']) // -> 'Просто апп'
 ```

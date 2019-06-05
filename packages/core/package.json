@@ -14,9 +14,13 @@
   "author": "Aleksandr Andreev <cinic.rus@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "test": "jest ."
   },
   "publishConfig": {
     "registry": "http://repo.fxdd.com/nexus/content/repositories/npm-internal/"
+  },
+  "peerDependencies": {
+    "react": "^16.8.6"
   }
 }

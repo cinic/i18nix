@@ -3,7 +3,7 @@ import { terser } from 'rollup-plugin-terser'
 import pkg from './package.json'
 
 export default {
-  input: 'src/index.tsx',
+  input: 'src/index.ts',
   output: [
     {
       file: pkg.main,
@@ -14,5 +14,14 @@ export default {
       format: 'es'
     }
   ],
-  plugins: [typescript(), terser()]
+  plugins: [
+    typescript({
+      useTsconfigDeclarationDir: false,
+      declarationDir: './dist',
+      tsconfigOverride: {
+        compilerOptions: { declaration: true, allowJs: false }
+      }
+    }),
+    terser()
+  ]
 }

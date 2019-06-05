@@ -1,30 +1,29 @@
-import { createInstance } from './index'
+import { initI18n, t, getLocale, setLocale } from './index'
 
 const TRANSLATIONS = { en: { title: 'Magazine' }, ru: { title: 'Журнал' } }
 describe('Create instance testing', () => {
   test('get nested path', () => {
-    const i18n = createInstance('en', TRANSLATIONS)
+    initI18n('en', TRANSLATIONS)
 
-    expect(i18n.t(['title'])).toBe(TRANSLATIONS.en.title);
+    expect(t(['title'])).toBe(TRANSLATIONS.en.title);
   });
 })
 
 describe('Locale getter/setter methods', () => {
+  beforeAll(() => {
+    initI18n('en', TRANSLATIONS)
+  })
   test('get current locale', () => {
-    const i18n = createInstance('en', TRANSLATIONS)
-
-    expect(i18n.locale).toBe('en');
+    expect(getLocale()).toBe('en');
   });
 
   test('set current locale', () => {
-    const i18n = createInstance('en', TRANSLATIONS)
-    i18n.locale = 'ru'
-    expect(i18n.locale).toBe('ru');
+    setLocale('ru')
+    expect(getLocale()).toBe('ru');
   });
 
   test('use new locale', () => {
-    const i18n = createInstance('en', TRANSLATIONS)
-    i18n.locale = 'ru'
-    expect(i18n.t(['title'])).toBe(TRANSLATIONS.ru.title);
+    setLocale('ru')
+    expect(t(['title'])).toBe(TRANSLATIONS.ru.title);
   });
 })

@@ -14,8 +14,6 @@ export default {
       format: 'es'
     }
   ],
-  plugins: [
-    typescript(),
-    terser()
-  ]
+  external: ['react'],
+  plugins: [typescript(), terser()]
 }
