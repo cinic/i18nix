@@ -5,9 +5,7 @@
   "main": "./dist/index.js",
   "module": "./dist/index.es.js",
   "files": [
-    "./dist/index.js",
-    "./dist/index.es.js",
-    "./dist/index.d.ts"
+    "./dist/*"
   ],
   "types": "./dist/index.d.ts",
   "repository": "http://repo.fxdd.com/stash/projects/CMN/repos/fxdd-i18nix",
