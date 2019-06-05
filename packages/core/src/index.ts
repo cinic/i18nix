@@ -26,7 +26,7 @@ export function createInstance(locale = 'en', translations = {}) {
   }
 }
 
-function t(path: string[], interpolation?: {}) {
+export function t(path: string[], interpolation?: {}) {
   const localeTranslations = settings.get(TRANSLATIONS_KEY)[settings.get(LOCALE_KEY)] || settings.get(TRANSLATIONS_KEY)['en']
   const translation = getPath(path, localeTranslations) || ''
   !translation && console.warn('Path not found in:', (settings.get(LOCALE_KEY) || 'en'), path.join('.'))

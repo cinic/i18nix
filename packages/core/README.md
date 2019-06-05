@@ -37,7 +37,7 @@ import { i18n } from '@lib/i18n'
 export const App = () => (
   <div>
     <h1>{i18n.t(['title'])}</h1>
-  </div>{i18n.t(['title'])}
+  </div>
 )
 ```
 
