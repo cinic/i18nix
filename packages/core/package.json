@@ -11,7 +11,7 @@
   ],
   "types": "./dist/index.d.ts",
   "repository": "http://repo.fxdd.com/stash/projects/CMN/repos/fxdd-i18nix",
-  "author": "Aleksandr Andreev <cinic.rus@gmail.com>",
+  "author": "Aleksandr Andreev <andreev@reksoft.ru>",
   "license": "MIT",
   "scripts": {
     "build": "rollup -c",
@@ -22,5 +22,6 @@
   },
   "peerDependencies": {
     "react": "^16.8.6"
-  }
+  },
+  "gitHead": "d1cc920ba8cde120a08473401dfc06b05a5810cd"
 }

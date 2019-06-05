@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Small & thin i18n lib",
   "main": "lib/index.js",
-  "repository": "https://github.com/cinic/i18nix",
-  "author": "Aleksandr Andreev <cinic.rus@gmail.com>",
+  "repository": "http://repo.fxdd.com/stash/projects/CMN/repos/fxdd-i18nix",
+  "author": "Aleksandr Andreev <andreev@reksoft.ru>",
   "license": "MIT",
   "private": true,
   "workspaces": [
