@@ -10,9 +10,6 @@
   "workspaces": [
     "packages/*"
   ],
-  "scripts": {
-    "test": "jest"
-  },
   "devDependencies": {
     "@types/enzyme": "^3.9.3",
     "@types/enzyme-adapter-react-16": "^1.0.5",
