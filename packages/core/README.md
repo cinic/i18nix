@@ -4,7 +4,7 @@ Smallest i18n lib
 # Getting started
 
 ```bash
-npm config set registry http://repo.fxdd.com/nexus/content/repositories/npm-all
+npm config set registry http://repo.fxdd.com/nexus/content/groups/npm-all/
 yarn add i18nix
 ```
 
