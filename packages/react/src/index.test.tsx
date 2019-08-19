@@ -9,9 +9,9 @@ const TRANSLATIONS = { en: { title: 'Nike' }, ru: { title: 'Найк' } }
 describe('Render component', () => {
   beforeAll(() => initI18n(locale, TRANSLATIONS))
 
-  test('Translate with path as string', () => {
+  test('Translate with value as string', () => {
     const translate = shallow(
-      <Translate path="title" />,
+      <Translate value="title" />,
     )
 
     expect(translate.text()).toEqual(TRANSLATIONS.en.title)
@@ -19,7 +19,7 @@ describe('Render component', () => {
 
   test('Rerender Translate component', () => {
     const translate = shallow(
-      <Translate path={['title']} />,
+      <Translate value={['title']} />,
     )
     setLocale('ru')
 

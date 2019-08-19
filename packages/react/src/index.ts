@@ -1,11 +1,11 @@
 import { ReactNode } from 'react'
 import { t, BaseComponent } from 'i18nix'
 
-export class Translate extends BaseComponent<{ path: string[] | string, [key: string]: any }> {
+export class Translate extends BaseComponent<{ value: string[] | string, [key: string]: any }> {
   render() {
-    const { path, ...otherProps } = this.props
+    const { value, ...otherProps } = this.props
 
-    return t(path, otherProps)
+    return t(value, otherProps)
   }
 }
 
