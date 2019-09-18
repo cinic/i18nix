@@ -10,12 +10,8 @@ module.exports = {
   setupFilesAfterEnv: ['../../setupEnzyme.ts'],
   globals: {
     'ts-jest': {
-      tsConfig: 'tsconfig.json'
+      tsConfig: './tsconfig.json'
     }
   },
-  moduleDirectories: [
-    '<rootDir>/node_modules',
-    'node_modules',
-    '../../node_modules'
-  ]
+  roots: ['<rootDir>', '<rootDir>/../../']
 }
