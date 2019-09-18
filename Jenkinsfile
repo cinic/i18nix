@@ -9,6 +9,14 @@ pipeline {
                 sh 'yarn install'
             }
         }
+        stage('Link core package') {
+          steps {
+            sh 'cd packages core'
+            sh 'yarn link'
+            sh 'cd ../react'
+            sh 'yarn link i18nix'
+          }
+        }
         stage('Test') {
             steps {
                 sh 'yarn lerna run test'
