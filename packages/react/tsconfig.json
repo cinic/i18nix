@@ -3,7 +3,7 @@
     "baseUrl": "./",
     "paths": {
       "i18nix": [
-        "../core/dist/index"
+        "../core/src/index"
       ]
     },
     "target": "es2015",
