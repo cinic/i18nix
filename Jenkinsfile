@@ -19,14 +19,14 @@ pipeline {
             }
           }
         }
-        stage('Test') {
-            steps {
-                sh 'yarn lerna run test'
-            }
-        }
         stage('Build') {
             steps {
                 sh 'yarn lerna run build'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'yarn lerna run test'
             }
         }
     }
