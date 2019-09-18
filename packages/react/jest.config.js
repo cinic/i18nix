@@ -13,5 +13,7 @@ module.exports = {
       tsConfig: './tsconfig.json'
     }
   },
-  roots: ['<rootDir>', '<rootDir>/../../']
+  moduleNameMapper: {
+    '^i18nix$': '<rootDir>/../core/dist/index'
+  }
 }
