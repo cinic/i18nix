@@ -23,5 +23,6 @@ export default {
       }
     }),
     terser()
-  ]
+  ],
+  external: ['i18nix']
 }
