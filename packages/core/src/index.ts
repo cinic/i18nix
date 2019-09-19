@@ -1,11 +1,10 @@
 import { Component } from 'react'
 import { getPath } from './lib/get-path'
 import { interpolate } from './lib/interpolate'
+import { mergeDeep } from './lib/merge'
 
-const LOCALE_KEY = 'locale'
-const TRANSLATIONS_KEY = 'translations'
-
-const settings = new Map()
+type Keys = 'locale' | 'translations'
+const settings = new Map<Keys, any>([['locale', 'en'], ['translations', {}]])
 
 export function initI18n(locale = 'en', translations = {}) {
   setLocale(locale)
@@ -28,28 +27,28 @@ export class BaseComponent<T> extends Component<T, any> {
 }
 
 export function setTranslations(translations: { [key: string]: any }) {
-  settings.set(TRANSLATIONS_KEY, translations)
+  settings.set('translations', mergeDeep(getTranslations(), translations))
   BaseComponent.update()
 }
 
 export function getTranslations() {
-  return settings.get(TRANSLATIONS_KEY)
+  return settings.get('translations')
 }
 
 export function setLocale(locale: string) {
-  settings.set(LOCALE_KEY, locale)
+  settings.set('locale', locale)
   BaseComponent.update()
 }
 
 export function getLocale() {
-  return settings.get(LOCALE_KEY)
+  return settings.get('locale')
 }
 
 export function t(path: string[] | string, interpolation?: {}) {
   const normalizePath = typeof path === 'string' ? path.split('.') : path
   const localeTranslations = getTranslations()[getLocale()] || getTranslations()['en']
   const translation = getPath(normalizePath, localeTranslations) || ''
-  !translation && console.warn('Path not found in:', (settings.get(LOCALE_KEY) || 'en'), normalizePath.join('.'))
+  !translation && console.warn('Path not found in:', (settings.get('locale') || 'en'), normalizePath.join('.'))
 
   return interpolation ? interpolate(translation as string, interpolation) : translation
 }
