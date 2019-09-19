@@ -1,4 +1,5 @@
-import { initI18n, t, getLocale, setLocale } from './index'
+import { initI18n, t, getLocale, setLocale, setTranslations, getTranslations } from './index'
+import { mergeDeep } from './lib/merge'
 
 const TRANSLATIONS = { en: { title: 'Magazine' }, ru: { title: 'Журнал' } }
 describe('Create instance testing', () => {
@@ -26,4 +27,10 @@ describe('Locale getter/setter methods', () => {
     setLocale('ru')
     expect(t(['title'])).toBe(TRANSLATIONS.ru.title);
   });
+
+  test('add translations', () => {
+    const translations = { en: { title: 'New Yorker', header: 'Magazine' } }
+    setTranslations(translations)
+    expect(getTranslations()).toStrictEqual(mergeDeep(TRANSLATIONS, translations))
+  })
 })
