@@ -3,34 +3,45 @@ import { mergeDeep } from './lib/merge'
 
 const TRANSLATIONS = { en: { title: 'Magazine' }, ru: { title: 'Журнал' } }
 describe('Create instance testing', () => {
-  test('get nested path', () => {
-    initI18n('en', TRANSLATIONS)
-
-    expect(t(['title'])).toBe(TRANSLATIONS.en.title);
-  });
+  describe('get nested path', () => {
+    test('expect Magazine', () => {
+      initI18n('en', TRANSLATIONS)
+  
+      expect(t(['title'])).toBe(TRANSLATIONS.en.title);
+    });
+  })
 })
 
 describe('Locale getter/setter methods', () => {
   beforeAll(() => {
     initI18n('en', TRANSLATIONS)
   })
-  test('get current locale', () => {
-    expect(getLocale()).toBe('en');
-  });
 
-  test('set current locale', () => {
-    setLocale('ru')
-    expect(getLocale()).toBe('ru');
-  });
+  describe('get locale', () => {
+    test('expect en', () => {
+      expect(getLocale()).toBe('en');
+    });
+  })
 
-  test('use new locale', () => {
-    setLocale('ru')
-    expect(t(['title'])).toBe(TRANSLATIONS.ru.title);
-  });
+  describe('set locale', () => {
+    test('expect ru', () => {
+      setLocale('ru')
+      expect(getLocale()).toBe('ru');
+    });
+  })
 
-  test('add translations', () => {
-    const translations = { en: { title: 'New Yorker', header: 'Magazine' } }
-    setTranslations(translations)
-    expect(getTranslations()).toStrictEqual(mergeDeep(TRANSLATIONS, translations))
+  describe('use new locale', () => {
+    test('expect Журнал', () => {
+      setLocale('ru')
+      expect(t(['title'])).toBe(TRANSLATIONS.ru.title);
+    });
+  })
+  
+  describe('add translations', () => {
+    test('expect merged translations', () => {
+      const translations = { en: { title: 'New Yorker', header: 'Magazine' } }
+      setTranslations(translations)
+      expect(getTranslations()).toStrictEqual(mergeDeep(TRANSLATIONS, translations))
+    })
   })
 })
