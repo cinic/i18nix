@@ -2,6 +2,7 @@ import { Component } from 'react'
 import { getPath } from './lib/get-path'
 import { interpolate } from './lib/interpolate'
 import { mergeDeep } from './lib/merge'
+import { isObject } from './lib/is-object'
 
 type Keys = 'locale' | 'translations'
 const settings = new Map<Keys, any>([['locale', 'en'], ['translations', {}]])
@@ -48,7 +49,10 @@ export function t(path: string[] | string, interpolation?: {}) {
   const normalizePath = typeof path === 'string' ? path.split('.') : path
   const localeTranslations = getTranslations()[getLocale()] || getTranslations()['en']
   const translation = getPath(normalizePath, localeTranslations) || ''
-  !translation && console.warn('Path not found in:', (settings.get('locale') || 'en'), normalizePath.join('.'))
+
+  if (translation === '') console.warn('Path has a empty value in:', (settings.get('locale') || 'en'), normalizePath.join('.'))
+  if (translation === undefined) console.warn('Path not found in:', (settings.get('locale') || 'en'), normalizePath.join('.'))
+  if (isObject(translation)) console.warn('Path should not be an object in:', (settings.get('locale') || 'en'), normalizePath.join('.'))
 
   return interpolation ? interpolate(translation as string, interpolation) : translation
 }
