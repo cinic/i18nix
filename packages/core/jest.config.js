@@ -1,6 +1,3 @@
-// For a detailed explanation regarding each configuration property, visit:
-// https://jestjs.io/docs/en/configuration.html
-
 module.exports = {
   rootDir: '.',
   clearMocks: true,
@@ -11,5 +8,4 @@ module.exports = {
     '^.+\\.(t|j)sx?$': 'ts-jest'
   },
   setupFilesAfterEnv: ['../../setupEnzyme.ts']
-  // projects: ['<rootDir>/packages/*/jest.config.js']
 }
