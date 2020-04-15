@@ -14,6 +14,6 @@ module.exports = {
     }
   },
   moduleNameMapper: {
-    '^i18nix$': '<rootDir>/../core/dist/index'
+    '^i18nix$': '<rootDir>/../core/src/index'
   }
 }
