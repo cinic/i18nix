@@ -1,37 +1,80 @@
 import * as React from 'react'
 import { shallow } from 'enzyme'
-import { initI18n, setLocale, t } from 'i18nix'
-import { Translate, I18n } from './index'
+import { I18n, Translate, setLocale, t, addTranslations } from './index'
 
-const locale = 'en'
-const TRANSLATIONS = { en: { title: 'Nike' }, ru: { title: 'Найк' } }
+const translations = { en: { title: 'Nike' }, ru: { title: 'Найк' } }
+setLocale('en')
+addTranslations(translations)
 
 describe('Render component', () => {
-  beforeAll(() => initI18n(locale, TRANSLATIONS))
-
-  test('Translate with value as string', () => {
-    const translate = shallow(
-      <Translate value="title" />,
-    )
-
-    expect(translate.text()).toEqual(TRANSLATIONS.en.title)
+  describe('Translate with value as string', () => {
+    const value = translations.en.title
+    
+    test(`Expect ${value}`, () => {
+      const translate = shallow(
+        <Translate value='title' />,
+      )
+  
+      expect(translate.text()).toEqual(value)
+    })
   })
 
-  test('Rerender Translate component', () => {
-    const translate = shallow(
-      <Translate value={['title']} />,
-    )
-    setLocale('ru')
-
-    expect(translate.text()).toEqual(TRANSLATIONS.ru.title)
+  describe('Translate with value as array', () => {
+    const value = translations.en.title
+    
+    test(`Expect ${value}`, () => {
+      const translate = shallow(
+        <Translate value={['title']} />,
+      )
+  
+      expect(translate.text()).toEqual(value)
+    })
   })
 
-  test('Rerender I18n component', () => {
-    const translate = shallow(
-      <I18n render={() => t('title')} />,
-    )
-    setLocale('ru')
+  describe('Translate update by setLocale', () => {
+    const value = translations.ru.title
+    
+    afterAll(() => {
+      setLocale('en')
+    })
+    
+    test(`Expect ${value}`, () => {
+      const translate = shallow(
+        <Translate value={['title']} />,
+      )
+      
+      setLocale('ru')
+      
+      expect(translate.text()).toEqual(value)
+    })
+  })
 
-    expect(translate.text()).toEqual(TRANSLATIONS.ru.title)
+  describe('Translate update by addTranslations', () => {
+    const title = 'Newbie'
+    const translation = { en: { title }}
+    
+    test(`Expect ${title}`, () => {
+      const translate = shallow(
+        <Translate value={['title']} />,
+      )
+      
+      addTranslations(translation)
+      
+      expect(translate.text()).toEqual(title)
+    })
+  })
+
+  describe('Rerender I18n', () => {
+    const value = translations.ru.title
+
+    test(`Expect ${value}`, () => {
+      const translate = shallow(
+        <I18n render={() => t('title')} />,
+      )
+      
+      setLocale('ru')
+  
+      expect(translate.text()).toEqual(value)
+    })
   })
 })

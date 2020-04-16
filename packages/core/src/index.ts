@@ -1,54 +1,54 @@
-import { Component } from 'react'
 import { getPath } from './lib/get-path'
 import { interpolate } from './lib/interpolate'
 import { mergeDeep } from './lib/merge'
+import { isObject } from './lib/is-object'
 
 type Keys = 'locale' | 'translations'
-const settings = new Map<Keys, any>([['locale', 'en'], ['translations', {}]])
+type Events = 'setLocale' | 'addTranslations'
+const subscribers = new Map<Events, any[]>([['setLocale', []], ['addTranslations', []]])
+const settings = new Map<Keys, any>()
 
 export function initI18n(locale = 'en', translations = {}) {
-  setLocale(locale)
-  setTranslations(translations)
+  settings.set('locale', locale)
+  settings.set('translations', translations)
+  
+  const subscribe = (event: Events, fn: Function) => {
+    const index = (subscribers.get(event)?.push(fn) || 0) - 1
 
-  return { setLocale, setTranslations, getLocale, getTranslations, t }
-}
-
-export class BaseComponent<T> extends Component<T, any> {
-  static instances = new Set<BaseComponent<any>>()
-  static update = () => BaseComponent.instances.forEach(instance => instance.forceUpdate())
-
-  componentDidMount() {
-    BaseComponent.instances.add(this)
+    return function unsubscribe() {
+      subscribers.get(event)?.splice(index, 1)
+    }
   }
 
-  componentWillUnmount() {
-    BaseComponent.instances.delete(this)
-  }
+  return { getLocale, getTranslations, setLocale, addTranslations, t, subscribe }
 }
 
-export function setTranslations(translations: { [key: string]: any }) {
+function addTranslations(translations: { [key: string]: any }) {
   settings.set('translations', mergeDeep(getTranslations(), translations))
-  BaseComponent.update()
+  subscribers.get('addTranslations')?.forEach(event => event())
 }
 
-export function getTranslations() {
+function getTranslations(): { [key: string]: any } {
   return settings.get('translations')
 }
 
-export function setLocale(locale: string) {
+function setLocale(locale: string) {
   settings.set('locale', locale)
-  BaseComponent.update()
+  subscribers.get('setLocale')?.forEach(event => event())
 }
 
-export function getLocale() {
+function getLocale(): string {
   return settings.get('locale')
 }
 
-export function t(path: string[] | string, interpolation?: {}) {
+function t(path: string[] | string, interpolation?: {}) {
   const normalizePath = typeof path === 'string' ? path.split('.') : path
   const localeTranslations = getTranslations()[getLocale()] || getTranslations()['en']
   const translation = getPath(normalizePath, localeTranslations) || ''
-  !translation && console.warn('Path not found in:', (settings.get('locale') || 'en'), normalizePath.join('.'))
+
+  if (translation === '') console.warn('Path has a empty value in:', (settings.get('locale') || 'en'), normalizePath.join('.'))
+  if (translation === undefined) console.warn('Path not found in:', (settings.get('locale') || 'en'), normalizePath.join('.'))
+  if (isObject(translation)) console.warn('Path should not be an object in:', (settings.get('locale') || 'en'), normalizePath.join('.'))
 
   return interpolation ? interpolate(translation as string, interpolation) : translation
 }

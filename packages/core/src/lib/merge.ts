@@ -1,7 +1,8 @@
+import { isObject } from './is-object'
 type Obj = { [key: string]: any }
 
 export function mergeDeep(leftValue: any, rightValue: any) {
-  if (_isObject(leftValue) && _isObject(rightValue)) {
+  if (isObject(leftValue) && isObject(rightValue)) {
     return mergeWith(mergeDeep, leftValue, rightValue);
   } else {
     return rightValue
@@ -10,10 +11,6 @@ export function mergeDeep(leftValue: any, rightValue: any) {
 
 function _has(key: string, value: any) {
   return Object.prototype.hasOwnProperty.call(value, key);
-}
-
-function _isObject(value: any) {
-  return Object.prototype.toString.call(value) === '[object Object]'
 }
 
 function mergeWith(fn: Function, leftObj: Obj, rightObj: Obj) {
