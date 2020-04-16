@@ -15,7 +15,11 @@
   "license": "MIT",
   "scripts": {
     "build": "rollup -c",
-    "test": "jest ."
+    "test": "jest .",
+    "prepare" : "yarn run build",
+    "prepublishOnly": "yarn run test",
+    "version": "git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "publishConfig": {
     "registry": "http://repo.fxdd.com/nexus/content/repositories/npm-internal/"
