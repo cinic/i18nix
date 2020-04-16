@@ -1,6 +1,6 @@
 {
   "name": "i18nix-react",
-  "version": "1.2.11",
+  "version": "1.2.0",
   "description": "React component for i18nix",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
