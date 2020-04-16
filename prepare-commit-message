@@ -15,5 +15,5 @@ then
         then
         exit
     fi
-    echo "$_name: $_message"
+    echo "$_name: $_message" > $COMMIT_MSG_FILE
 fi
