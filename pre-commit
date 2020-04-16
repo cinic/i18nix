@@ -9,7 +9,7 @@ if [[ $BRANCH_NAME =~ $_regexp ]]
 then
     _name="${BASH_REMATCH[1]}"
 
-    _message=`cat $1`
+    _message=`cat $COMMIT_MSG_FILE`
 
     if [[ $_message == $_name* ]]
         then
@@ -17,4 +17,3 @@ then
     fi
     echo "$_name: $_message"
 fi
-
