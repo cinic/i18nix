@@ -5,6 +5,8 @@ import { isObject } from './lib/is-object'
 
 type Keys = 'locale' | 'translations'
 type Events = 'setLocale' | 'addTranslations'
+export type Path = string[] | string
+
 const subscribers = new Map<Events, any[]>([['setLocale', []], ['addTranslations', []]])
 const settings = new Map<Keys, any>()
 
@@ -41,7 +43,7 @@ function getLocale(): string {
   return settings.get('locale')
 }
 
-function t(path: string[] | string, interpolation?: {}) {
+function t(path: Path, interpolation?: any): string {
   const normalizePath = typeof path === 'string' ? path.split('.') : path
   const localeTranslations = getTranslations()[getLocale()] || getTranslations()['en']
   const translation = getPath(normalizePath, localeTranslations) || ''
@@ -50,5 +52,5 @@ function t(path: string[] | string, interpolation?: {}) {
   if (translation === undefined) console.warn('Path not found in:', (settings.get('locale') || 'en'), normalizePath.join('.'))
   if (isObject(translation)) console.warn('Path should not be an object in:', (settings.get('locale') || 'en'), normalizePath.join('.'))
 
-  return interpolation ? interpolate(translation as string, interpolation) : translation
+  return interpolation ? interpolate(translation as string, interpolation) : `${translation}`
 }
