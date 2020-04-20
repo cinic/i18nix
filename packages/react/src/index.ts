@@ -1,13 +1,15 @@
 import { ReactNode, Component } from 'react'
-import { initI18n } from 'i18nix'
+import { initI18n, Path } from 'i18nix'
+
+type Props = { value: Path }
 
 const { getLocale, getTranslations, setLocale, addTranslations, subscribe, t } = initI18n()
 
 subscribe('setLocale', () => BaseComponent.update())
 subscribe('addTranslations', () => BaseComponent.update())
 
-export class BaseComponent<T> extends Component<T, any> {
-  static instances = new Set<BaseComponent<any>>()
+class BaseComponent<T = {}> extends Component<T> {
+  static instances = new Set<BaseComponent>()
   static update = () => BaseComponent.instances.forEach(instance => instance.forceUpdate())
 
   componentDidMount() {
@@ -19,9 +21,9 @@ export class BaseComponent<T> extends Component<T, any> {
   }
 }
 
-export class Translate extends BaseComponent<{ value: string[] | string, [key: string]: any }> {
+export class Translate extends BaseComponent<Props & {}> {
   render() {
-    const { value, ...otherProps } = this.props
+    const { value, children: _, ...otherProps } = this.props
 
     return t(value, otherProps)
   }

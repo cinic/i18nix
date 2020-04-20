@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "i18nix": [
         "../core/src/index"
@@ -8,14 +8,14 @@
     },
     "target": "es2015",
     "module": "es2015",
-    "allowJs": true,
-    "jsx": "react",
+    "declaration": true,
+    "declarationDir": "dist",
     "sourceMap": true,
-    "outDir": "./dist",
+    "outDir": "dist",
     "removeComments": true,
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "jsx": "react"
   },
   "include": [
     "./src/**/*"
