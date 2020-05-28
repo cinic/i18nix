@@ -1,7 +1,7 @@
-import typescript from "@rollup/plugin-typescript";
-import alias from "rollup-plugin-alias";
-import { terser } from "rollup-plugin-terser";
-import pkg from "./package.json";
+import alias from "@rollup/plugin-alias"
+import typescript from "@rollup/plugin-typescript"
+import { terser } from "rollup-plugin-terser"
+import pkg from "./package.json"
 
 export default {
   input: "src/index.ts",
@@ -9,18 +9,19 @@ export default {
     {
       file: pkg.main,
       format: "cjs",
+      sourcemap: true,
     },
     {
       file: pkg.module,
       format: "es",
+      sourcemap: true,
     },
   ],
   plugins: [
+    typescript(),
     alias({
-      resolve: [".jsx", ".js", ".ts", ".tsx"],
       entries: [{ find: "i18nix", replacement: "../../core/src/index" }],
     }),
-    typescript(),
     terser(),
   ],
   external: ["i18nix", "react"],

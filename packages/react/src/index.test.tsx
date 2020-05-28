@@ -2,7 +2,7 @@ import * as React from 'react'
 import { shallow } from 'enzyme'
 import { I18n, Translate, setLocale, t, addTranslations } from './index'
 
-const translations = { en: { title: 'Nike' }, ru: { title: 'Найк' } }
+const translations = { en: { title: 'Nike', counter: 'Counter %{count}' }, ru: { title: 'Найк' } }
 setLocale('en')
 addTranslations(translations)
 
@@ -25,6 +25,18 @@ describe('Render component', () => {
     test(`Expect ${value}`, () => {
       const translate = shallow(
         <Translate value={['title']} />,
+      )
+  
+      expect(translate.text()).toEqual(value)
+    })
+  })
+
+  describe('Translate with interpolation props', () => {
+    const value = t('counter', { count: 50 })
+    
+    test(`Expect ${value}`, () => {
+      const translate = shallow(
+        <Translate value='counter' count='50' />,
       )
   
       expect(translate.text()).toEqual(value)

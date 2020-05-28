@@ -45,7 +45,7 @@ function getLocale(): string {
 function t(path: string[] | string, interpolation?: { [index: string]: string | number | boolean }): string {
   const normalizePath = typeof path === 'string' ? path.split('.') : path
   const localeTranslations = getTranslations()[getLocale()] || getTranslations()['en']
-  const translation = getPath(normalizePath, localeTranslations) || ''
+  const translation = getPath(normalizePath, localeTranslations) || getPath(normalizePath, getTranslations()['en']) || ''
 
   if (translation === '') console.warn('Path has a empty value in:', (settings.get('locale') || 'en'), normalizePath.join('.'))
   if (translation === undefined) console.warn('Path not found in:', (settings.get('locale') || 'en'), normalizePath.join('.'))
