@@ -3,13 +3,11 @@
     "baseUrl": "./",
     "target": "es2015",
     "module": "es2015",
-    "declaration": true,
-    "declarationDir": "./dist",
     "sourceMap": true,
-    "outDir": "./dist",
     "removeComments": true,
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "include": [
     "./src/**/*"

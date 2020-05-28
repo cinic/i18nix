@@ -1,4 +1,4 @@
-import typescript from "rollup-plugin-typescript2";
+import typescript from "@rollup/plugin-typescript";
 import alias from "rollup-plugin-alias";
 import { terser } from "rollup-plugin-terser";
 import pkg from "./package.json";
@@ -20,7 +20,7 @@ export default {
       resolve: [".jsx", ".js", ".ts", ".tsx"],
       entries: [{ find: "i18nix", replacement: "../../core/src/index" }],
     }),
-    typescript({ useTsconfigDeclarationDir: true }),
+    typescript(),
     terser(),
   ],
   external: ["i18nix", "react"],

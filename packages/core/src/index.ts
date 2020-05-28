@@ -5,7 +5,6 @@ import { isObject } from './lib/is-object'
 
 type Keys = 'locale' | 'translations'
 type Events = 'setLocale' | 'addTranslations'
-export type Path = string[] | string
 
 const subscribers = new Map<Events, any[]>([['setLocale', []], ['addTranslations', []]])
 const settings = new Map<Keys, any>()
@@ -43,7 +42,7 @@ function getLocale(): string {
   return settings.get('locale')
 }
 
-function t(path: Path, interpolation?: any): string {
+function t(path: string[] | string, interpolation?: { [index: string]: string | number | boolean }): string {
   const normalizePath = typeof path === 'string' ? path.split('.') : path
   const localeTranslations = getTranslations()[getLocale()] || getTranslations()['en']
   const translation = getPath(normalizePath, localeTranslations) || ''
