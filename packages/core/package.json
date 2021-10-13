@@ -1,6 +1,6 @@
 {
   "name": "i18nix",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Small & thin i18n lib core module",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.es.js",
