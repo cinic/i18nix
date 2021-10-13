@@ -1,6 +1,6 @@
 {
   "name": "i18nix-react",
-  "version": "1.2.2",
+  "version": "2.0.0",
   "description": "React component for i18nix",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
@@ -23,6 +23,7 @@
     "build:cleanLib": "rimraf ./dist/react ./dist/core",
     "build:copyDts": "copyfiles -f ./dist/react/src/index.d.ts dist",
     "test": "jest .",
+    "test:watch": "jest --watch",
     "prepare": "yarn run build",
     "prepublishOnly": "yarn run test",
     "version": "git add -A src",
@@ -32,8 +33,8 @@
     "registry": "http://repo.fxdd.com/nexus/content/repositories/npm-internal/"
   },
   "peerDependencies": {
-    "i18nix": "^2.0.0",
-    "react": "^16.8.6"
+    "i18nix": "^2.0.2",
+    "react": "^17.0.2"
   },
   "gitHead": "ccb2b58bb9b08732104e8a7d7394f59e5dc77aa0"
 }
